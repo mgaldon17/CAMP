@@ -80,22 +80,24 @@ def interpolate(ErrorMask, ImInput):
     # display fixed image
     return ImErrorConcealed
 
-assignment_data = loadmat(os.path.join("data","image_transformations_assignment.mat"))
-assignment_data.keys()
+def start():
 
-ImInput = assignment_data["ImInput"]
-ErrorMask = assignment_data["ErrorMask"]
+    assignment_data = loadmat(os.path.join("data","image_transformations_assignment.mat"))
+    assignment_data.keys()
 
-#Input
-saveImage(ImInput, 'ImInput')
+    ImInput = assignment_data["ImInput"]
+    ErrorMask = assignment_data["ErrorMask"]
 
-#ErrorMask
-saveImage(ErrorMask, 'ErrorMask')
+    #Input
+    saveImage(ImInput, 'ImInput')
 
-ImErrorConcealed = interpolate(ErrorMask, ImInput)
+    #ErrorMask
+    saveImage(ErrorMask, 'ErrorMask')
 
-saveImage(ImErrorConcealed, 'ImErrorConcealed')
+    ImErrorConcealed = interpolate(ErrorMask, ImInput)
 
-# display difference between fixed and ground truth
+    saveImage(ImErrorConcealed, 'ImErrorConcealed')
 
-saveImage(ErrorMask - ImErrorConcealed, 'difference')
+    # display difference between fixed and ground truth
+
+    saveImage(ErrorMask - ImErrorConcealed, 'difference')
