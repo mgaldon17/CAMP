@@ -19,13 +19,6 @@ from skimage import transform as skitr
 import warnings
 warnings.filterwarnings("ignore")
 
-assignment_data = loadmat(os.path.join("data","image_transformations_assignment.mat"))
-assignment_data.keys()
-
-ImInput = assignment_data["ImInput"]
-ErrorMask = assignment_data["ErrorMask"]
-
-
 def get4ngb(rows, cols, x, y):
     # function ngb = get4ngb(rows, cols, x, y)
     #
@@ -63,7 +56,7 @@ def saveImage(Image, name):
     plt.axis('off')
     plt.savefig(name)
 
-def interpolate():
+def interpolate(ErrorMask, ImInput):
     ImErrorConcealed = np.zeros(ImInput.shape, dtype=ImInput.dtype)
 
     h, w = ImInput.shape
@@ -87,13 +80,19 @@ def interpolate():
     # display fixed image
     return ImErrorConcealed
 
+assignment_data = loadmat(os.path.join("data","image_transformations_assignment.mat"))
+assignment_data.keys()
+
+ImInput = assignment_data["ImInput"]
+ErrorMask = assignment_data["ErrorMask"]
+
 #Input
 saveImage(ImInput, 'ImInput')
 
 #ErrorMask
 saveImage(ErrorMask, 'ErrorMask')
 
-ImErrorConcealed = interpolate()
+ImErrorConcealed = interpolate(ErrorMask, ImInput)
 
 saveImage(ImErrorConcealed, 'ImErrorConcealed')
 
