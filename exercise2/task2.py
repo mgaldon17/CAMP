@@ -38,9 +38,10 @@ def resizeLanczos(image, scalingFactor):
 
 
 def NN_interpolation(img, dstH, dstW):
-
+    print(img.shape)
     scrH, scrW = img.shape
-    retimg = np.zeros((dstH, dstW, 3), dtype=np.uint8)
+
+    retimg = np.zeros((dstH, dstW, 3))
 
     for i in range(dstH-1):
         for j in range(dstW-1):
@@ -49,16 +50,41 @@ def NN_interpolation(img, dstH, dstW):
             retimg[i,j]=img[scrx,scry]
     return retimg
 
+def bilinear_interpolation(img,m,n):
+    height,width =img.shape
+    emptyImage=np.zeros((m,n),np.uint8)
+    value=[0,0,0]
+    sh=m/height
+    sw=n/width
+    for i in range(m):
+        for j in range(n):
+            x = i/sh
+            y = j/sw
+            p=(i+0.0)/sh-x
+            q=(j+0.0)/sw-y
+            x=int(x)-1
+            y=int(y)-1
+            for k in range(3):
+                if x+1<m and y+1<n:
+                    value[k]=int(img[x,y][k]*(1-p)*(1-q)+img[x,y+1][k]*q*(1-p)+img[x+1,y][k]*(1-q)*p+img[x+1,y+1][k]*p*q)
+            emptyImage[i, j] = (value[0], value[1], value[2])
+    return emptyImage
+
 
 def start():
     assignment_data = loadmat(os.path.join("data", "image_transformations_assignment.mat"))
     assignment_data.keys()
 
-    image = assignment_data["ImInput"]
-    image1 = NN_interpolation(image, image.shape[0] * 3, image.shape[1] * 3)
+    #data = assignment_data["ImInput"]
 
+    image = Image.open("ImErrorConcealed.png").convert('LA')
+    data = np.array(image)
+
+    image1 = NN_interpolation(data, data.shape[0] * 2, data.shape[1] * 2)
+    #image_bilinear = bilinear_interpolation(data,3,3)
     saveImage(image1, 'image1')
-    saveImage(image, 'image')
+    saveImage(data, 'image')
+    #saveImage(image_bilinear)
 
 
 start()
