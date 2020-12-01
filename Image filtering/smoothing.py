@@ -10,6 +10,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # TODO: Load your image and create your kernels
+from sympy.printing.printer import Printer
+
+from Plotter import Plotter
+
 img_tiger = cv2.imread('basic_filtering/img/tiger.jpg')
 
 # Filter kernels
@@ -26,7 +30,10 @@ tiger_wavg = cv2.filter2D(src=img_tiger, ddepth=-1, kernel=wavg_kernel)
 fig = plt.figure(figsize=(20, 20))
 
 # Original image
-
+images = []
+images.append([img_tiger, "Image"])
+printer = Plotter(images, False)
+printer.plot()
 ax1 = fig.add_subplot(221)
 ax1.imshow(img_tiger, interpolation='none', cmap='gray')
 ax1.set_title('Original image')
