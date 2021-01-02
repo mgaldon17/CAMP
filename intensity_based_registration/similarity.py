@@ -101,12 +101,14 @@ def cost_function(transform_params, fixed_image, moving_image, similarity):
 if __name__ == '__main__':
     fixed_image, moving_image = load_dataset('ct_fixed.png', 'ct_moving.png')
 
-    # Give some initial values to the transformation parameters
-    x0 = [75, -15, -15]
+    # Give some initial values to the transformation parameters. Vector de transformacion de la fixed image
+    x0 = [13, -15, -15]
 
-    result_params = opt.fmin(cost_function, x0, args=(fixed_image, moving_image, 'MI'))
-
+    result_params = opt.fmin(cost_function, x0, args=(fixed_image, moving_image, 'NCC'))
+    print(result_params)
     # Transform the moving images with the found parameters
     result_image = transform_image_param(moving_image, result_params)
     # Let's have a look at the result!
+
     plot_images(result_image, fixed_image)
+    #Imagen transformada, imagen original, diferencia de imagenes por el metodo dado
