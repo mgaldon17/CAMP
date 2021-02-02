@@ -100,11 +100,13 @@ def cost_function(transform_params, fixed_image, moving_image, similarity):
 
 if __name__ == '__main__':
     fixed_image, moving_image = load_dataset('ct_fixed.png', 'ct_moving.png')
-
+    #We have now an optimization problem, we want to find some values (the transform_params in the previous function) that minimize/maximize the dis-/similarity between the two images.
+    #There are different approaches to solve the problem, a classical one is using a simplex method.
+    #To do so, we are going to use the 'fmin' function from Scipy. It implements the Nelder-Mead algorithm
     # Give some initial values to the transformation parameters. Vector de transformacion de la fixed image
     x0 = [13, -15, -15]
 
-    result_params = opt.fmin(cost_function, x0, args=(fixed_image, moving_image, 'NCC'))
+    result_params = opt.fmin(cost_function, x0, args=(fixed_image, moving_image, 'SSD'))
     print(result_params)
     # Transform the moving images with the found parameters
     result_image = transform_image_param(moving_image, result_params)
