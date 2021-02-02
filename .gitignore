@@ -110,9 +110,13 @@ ENV/
 env.bak/
 venv.bak/
 <<<<<<< HEAD
+<<<<<<< HEAD
 .idea/
 =======
 /Image segmentation/.idea
+=======
+conda/
+>>>>>>> exercise2_official_solution
 
 >>>>>>> image_segmentation
 # Spyder project settings
@@ -132,3 +136,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Images
+.png
