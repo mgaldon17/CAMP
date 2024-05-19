@@ -75,7 +75,3 @@ Please refer to the comments in each script for more detailed information about 
 ## Contributing
 
 Contributions are welcome. Please make sure to suggest changes that are in line with the goals of the project.
-
-## Contact
-
-Provide contact information for people who want to get in touch with you about the project.
